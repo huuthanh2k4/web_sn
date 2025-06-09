@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc Mừng Sinh Nhật – CSS Cake (Enhanced Audio Detection)</title>
+  <style>
+    /* NỀN TƯƠI SÁNG */
+    @keyframes bgGradient {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(45deg, #FFDEE9, #B5FFFC, #FFE8D6, #FFD1FF);
+      background-size: 400% 400%;
+      animation: bgGradient 10s ease infinite;
+      font-family: Arial, sans-serif;
+    }
+
+    /* BÁNH & NẾN */
+    .cake {
+      position: absolute;
+      width: 250px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
+      margin: -70px 0 0 -125px;
+    }
+
+    .plate {
+      width: 270px;
+      height: 110px;
+      position: absolute;
+      bottom: -10px;
+      left: -10px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      box-shadow: 0 2px #d0d0d0, 0 4px #d0d0d0, 0 5px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .cake>* {
+      position: absolute
+    }
+
+    .layer {
+      width: 250px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF7F50, #CD5C5C);
+      box-shadow: 0 2px #ff8b65, 0 4px #c94d4d, 0 6px #a53f3f;
+    }
+
+    .layer-top {
+      top: 0
+    }
+
+    .layer-middle {
+      top: 33px
+    }
+
+    .layer-bottom {
+      top: 66px
+    }
+
+    .icing {
+      top: 2px;
+      left: 5px;
+      width: 240px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFFACD, #FAF0E6)
+    }
+
+    .icing:before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      bottom: 6px;
+      left: 5px;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      z-index: 1
+    }
+
+    .drip {
+      width: 50px;
+      height: 60px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      background: #fff;
+      z-index: 2
+    }
+
+    .drip1 {
+      top: 53px;
+      left: 5px;
+      transform: skewY(15deg);
+      height: 48px;
+      width: 40px
+    }
+
+    .drip2 {
+      top: 69px;
+      left: 181px;
+      transform: skewY(-15deg)
+    }
+
+    .drip3 {
+      top: 54px;
+      left: 90px;
+      width: 80px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px
+    }
+
+    .candle {
+      background: #e74c3c;
+      width: 16px;
+      height: 50px;
+      border-radius: 8px/4px;
+      top: -20px;
+      left: 50%;
+      margin-left: -8px;
+      z-index: 10;
+      overflow: visible
+    }
+
+    .flame {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 35px;
+      background: radial-gradient(circle at 50% 60%, rgba(255, 165, 0, 1)0%, rgba(255, 215, 0, 0.9)60%, rgba(0, 0, 0, 0)100%);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.8));
+      animation: sway 0.8s infinite ease-in-out;
+      z-index: 11
+    }
+
+    @keyframes sway {
+      0% {
+        transform: translateX(-50%) scale(1)
+      }
+
+      50% {
+        transform: translateX(-50%) scale(0.9) rotate(3deg)
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1)
+      }
+    }
+
+    /* THÔNG BÁO */
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      font-size: 20px;
+      color: #c0392b;
+      text-align: center;
+      line-height: 1.4;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100
+    }
+
+    #playHint {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      z-index: 50
+    }
+
+    /* BÓNG BAY */
+    .balloon {
+      position: absolute;
+      bottom: -60px;
+      width: 40px;
+      height: 60px;
+      background: url('https://i.imgur.com/OdL0XPt.png') no-repeat center/contain;
+      animation: floatUp 6s ease-in infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1)
+      }
+
+      100% {
+        transform: translateY(-700px) scale(1.2);
+        opacity: 0
+      }
+    }
+
+    /* PHÁO GIẤY */
+    .confetti {
+      position: absolute;
+      width: 6px;
+      height: 12px;
+      opacity: 0.8;
+      animation: confettiFall 2s ease-out forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1
+      }
+
+      100% {
+        transform: translate(var(--x), var(--y)) rotate(360deg);
+        opacity: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cake">
+    <div class="plate"></div>
+    <div class="layer layer-bottom"></div>
+    <div class="layer layer-middle"></div>
+    <div class="layer layer-top"></div>
+    <div class="icing"></div>
+    <div class="drip drip1"></div>
+    <div class="drip drip2"></div>
+    <div class="drip drip3"></div>
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+  </div>
+
+  <div id="message"></div>
+  <div id="playHint">(Bấm vào trang để cho phép âm thanh và microphone)</div>
+
+  <audio id="bgMusic" src="happy_birthday.mp3" loop></audio>
+  <script>
+    let flameAlive = true;
+    const flameEl = document.querySelector('.flame');
+    const messageEl = document.getElementById('message');
+    const playHintEl = document.getElementById('playHint');
+    const bgMusic = document.getElementById('bgMusic');
+
+    const fullMessage = `Chúc mừng sinh nhật chị yêu của em! 🎉🎂
+Chúc chị luôn tràn đầy sức khỏe, niềm vui và hạnh phúc trong từng khoảnh khắc.
+Mong mọi ước mơ của chị sẽ thành hiện thực, và ngày hôm nay thật sự là một kỷ niệm đáng nhớ bên gia đình và bạn bè.
+Yêu chị rất nhiều! ❤️`;
+
+    function typeWriter(text, element, speed) {
+      let i = 0;
+      element.textContent = '';
+      element.style.opacity = '1';
+      function typing() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    function extinguishCandle() {
+      if (!flameAlive) return;
+      flameAlive = false;
+      flameEl.style.display = 'none';
+      typeWriter(fullMessage, messageEl, 50);
+      launchBalloons();
+      launchConfetti();
+    }
+
+    function launchBalloons() {
+      const count = 8;
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        const x = Math.random() * (window.innerWidth - 50);
+        b.style.left = `${x}px`;
+        b.style.animationDelay = `${Math.random()}s`;
+        document.body.appendChild(b);
+      }
+    }
+
+    function launchConfetti() {
+      const count = 40;
+      for (let i = 0; i < count; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.backgroundColor = ['#e74c3c', '#f1c40f', '#2ecc71', '#3498db'][i % 4];
+        const dir = i % 2 ? 1 : -1;
+        const x = dir * (100 + Math.random() * 200);
+        const y = -200 - Math.random() * 100;
+        c.style.setProperty('--x', `${x}px`);
+        c.style.setProperty('--y', `${y}px`);
+        c.style.left = '50%';
+        c.style.top = '60%';
+        c.style.animationDelay = `${Math.random()}s`;
+        document.body.appendChild(c);
+      }
+    }
+
+    let started = false;
+    document.body.addEventListener('click', async function init() {
+      if (started) return; started = true;
+      playHintEl.style.display = 'none';
+      try { bgMusic.volume = 0.5; await bgMusic.play(); } catch { }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser(); analyser.fftSize = 2048; source.connect(analyser);
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        const sampleRate = audioCtx.sampleRate;
+        const binCount = analyser.frequencyBinCount;
+        // Xác định chỉ số dải tần < 300Hz
+        const cutoffFreq = 300;
+        const cutoffIndex = Math.floor(cutoffFreq / (sampleRate / 2) * binCount);
+        function monitor() {
+          analyser.getByteFrequencyData(dataArray);
+          // Tính năng lượng dải thấp
+          let lowSum = 0;
+          for (let i = 0; i < cutoffIndex; i++) lowSum += dataArray[i];
+          // Tính năng lượng toàn phổ
+          let totalSum = dataArray.reduce((a, b) => a + b, 0);
+          const lowRatio = lowSum / totalSum;
+          // Nếu dải thấp vượt ngưỡng và đủ ồn => thổi
+          if (lowRatio > 0.4 && totalSum > 10000 && flameAlive) {
+            extinguishCandle();
+          } else if (flameAlive) {
+            requestAnimationFrame(monitor);
+          }
+        }
+        monitor();
+      } catch { }
+      document.body.removeEventListener('click', init);
+    });
+  </script>
+</body>
+
+</html>
